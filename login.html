@@ -7,22 +7,22 @@
     <title>Login</title>
     <style>
         .error{
-            color:blue;
+            color: red;
         }
     </style>
 </head>
 <body>
        <p class="error"></p>
        <form class="login">
-          
+           
 
-            <legend>Login Form</legend>
+            <h1>Login</h1>
              <label >Email</label><br>
-             <input type="email"  id="email">
-             
-             <h1>Password</h1><br>
-             <input type="password" id="password">
-            
+             <input type="email"  id="email" >
+             <br><br>
+             <label for="password">Password</label><br>
+             <input type="password" id="password" >
+             <br><br>
 
              <input type="submit">
 
@@ -32,27 +32,27 @@
        <script>
      
            const currentUser=[];
-           currentUser[0]="mike";
-          let login_form  = document.querySelector('.login');
+           currentUser[0]="MAN";
+          let lform  = document.querySelector('.login');
             let error = document.querySelector('.error');
 
-          login_form.addEventListener('submit', login)
-          let login_email = document.querySelector('#email');
-          let login_password = document.querySelector('#password');
+          lform.addEventListener('submit', login)
+          let lemail = document.querySelector('#email');
+          let lpassword = document.querySelector('#password');
           let data
           function login(e){
             e.preventDefault();
             data = JSON.parse(localStorage.getItem('data'));
-            let email = login_email.value;
-            let password = login_password.value;
-            let cases = ["Email not found", "Password Incorrect", "Login Successful"]
-             let x = log(email, password)
+            let email = lemail.value;
+            let password = lpassword.value;
+            let test = ["EMAIL UNAVAILABLE", "PASSWORD NOT MATCH", "LOGIN SUCCESSFUL"]
+             let x = check(email, password)
               if(x==0 || x==1){
-                    error.innerHTML = cases[x]
+                    error.innerHTML = test[x]
 
               }
               else{
-                    error.innerHTML = cases[x]  
+                    error.innerHTML = test[x]  
                    let token=Token();let id=currentUser.length++;
                    data.forEach((item)=>{
                      if(item.email==email && item.password==password)
@@ -60,15 +60,15 @@
                        let names=item.name;
                          let email=item.email;
                          let password=item.password;
-                         let ks={
+                         let SK={
                             name:`${names}`,
                             email:`${email}`,
                             password:`${password}`,
                             token:`${token}`
                          }
-   currentUser.push(ks);
-   login_email.value="";
-   login_password.value="";
+   currentUser.push(SK);
+   lemail.value="";
+   lpassword.value="";
    localStorage.setItem("data" , JSON.stringify(currentUser))
  window.location.href = "dashboard.html";
 
@@ -82,7 +82,7 @@
           }
           
 
-          function log(email, password){
+          function check(email, password){
             let flag = 0
              for(let t of data){
                 if(t.email == email){
@@ -110,22 +110,23 @@
 
 
           function Token(){
-             let capital_digit = "IJKLM" 
-             let small_digit = "efghi" 
-             let number = "6789" 
-             let special = "!@()_+" 
+             let capital = "GHIJKLM" 
+             let small = "fghi" 
+             let number = "456789" 
+             let special = "^&*()_+" 
 
-             let char = capital_digit + small_digit + number + special
+             let char = capital + small + number + special
 
              let token = ""
-             for(let K=0; K<16; K++){
+             for(let J=0; J<16; J++){
                  let random = Math.floor(Math.random()*char.length) // 4
                  token = token + char[random]
              }
-                return token //  store the token in the perosn object who logged in
+                return token 
           }
 
-  
+
+         
           
 
        </script>
